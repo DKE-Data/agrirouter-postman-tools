@@ -1,0 +1,16 @@
+{
+  "name": "agrirouter-signature-generator",
+  "version": "1.0.0",
+  "description": "Send PostRequest with Key and Body (Stringified) to receive Signature used for secure onboarding",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Frank Wiebeler, dev4Agriculture",
+  "license": "Apache-2.0",
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "express": "^4.16.3",
+    "node-forge": "^0.7.5"
+  }
+}

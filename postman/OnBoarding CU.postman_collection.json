@@ -1,0 +1,267 @@
+{
+	"info": {
+		"_postman_id": "1f9c283d-cd8a-479f-8745-171a86d2e051",
+		"name": "OnBoarding CU",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Onboarding Request",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "11ae2150-0c92-4ef9-a323-b30a3476d631",
+						"type": "text/javascript",
+						"exec": [
+							"// --------------------------------------------------------------------------------------------",
+							"//",
+							"//   To-Dos:",
+							"//",
+							"//     1. Create registration code in UI",
+							"//     2. provide external Id of endpoint to be registered in variable reg_external_id",
+							"//        Note: This Id must be globally uinique and should contain",
+							"//     3. Copy applicationId and certificationVersionId from application to be registered",
+							"//        to the corresponding variables",
+							"// ",
+							"// ",
+							"// --------------------------------------------------------------------------------------------",
+							"",
+							"GATEWAY_TYPE_MQTT = 2;",
+							"GATEWAY_TYPE_REST = 3;",
+							"",
+							"",
+							"postman.setEnvironmentVariable(\"reg_gateway_type\", GATEWAY_TYPE_REST);",
+							"postman.setEnvironmentVariable(\"endpoint_reg_code\", \"---REGISTRATION TOKEN GOES HERE---\");",
+							"postman.setEnvironmentVariable(\"reg_external_id\", \"---Unique External Name GOES HERE ---\");",
+							"",
+							"",
+							"postman.setEnvironmentVariable(\"applicationId\", \"--- APPLICATIONID GOES HEERE ---\");",
+							"postman.setEnvironmentVariable(\"certificationVersionId\", \"--- CERTIFICATION VERSION ID GOES HERE ---\");",
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "062afb8b-e3f9-41a6-aad2-9d484d0b18c1",
+						"type": "text/javascript",
+						"exec": [
+							"var jsonData = JSON.parse(responseBody);",
+							"postman.setEnvironmentVariable(\"deviceAlternateId\", jsonData.deviceAlternateId);",
+							"postman.setEnvironmentVariable(\"capabilityAlternateId\",jsonData.capabilityAlternateId);",
+							"postman.setEnvironmentVariable(\"sensorAlternateId\",jsonData.sensorAlternateId);",
+							"postman.setEnvironmentVariable(\"inboxURL\",jsonData.connectionCriteria.measures);",
+							"postman.setEnvironmentVariable(\"outboxURL\",jsonData.connectionCriteria.commands);"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{endpoint_reg_code}}"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\t\"id\": \"{{reg_external_id}}\",\r\n    \"applicationId\": \"{{applicationId}}\",\r\n    \"certificationVersionId\": \"{{certificationVersionId}}\",\r\n    \"gatewayId\": \"{{reg_gateway_type}}\",\r\n    \"certificateType\": \"PEM\"\r\n}"
+				},
+				"url": {
+					"raw": "https://{{registration_service_path}}{{landscape}}.{{cf_host}}/{{api_prefix}}/registration/onboard",
+					"protocol": "https",
+					"host": [
+						"{{registration_service_path}}{{landscape}}",
+						"{{cf_host}}"
+					],
+					"path": [
+						"{{api_prefix}}",
+						"registration",
+						"onboard"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Onboarded REST CU on Jan 18",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{endpoint_reg_code}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\t\"id\": \"SAP-CU-REST_MG_20180118\",\r\n    \"applicationId\": \"{{applicationId}}\",\r\n    \"certificationVersionId\": \"{{certificationVersionId}}\",\r\n    \"gatewayId\": \"{{reg_gateway_type}}\",\r\n    \"certificateType\": \"PEM\"\r\n}"
+						},
+						"url": {
+							"raw": "https://{{registration_service_path}}{{landscape}}.{{cf_host}}/{{api_prefix}}/registration/onboard",
+							"protocol": "https",
+							"host": [
+								"{{registration_service_path}}{{landscape}}",
+								"{{cf_host}}"
+							],
+							"path": [
+								"{{api_prefix}}",
+								"registration",
+								"onboard"
+							]
+						}
+					},
+					"status": "Created",
+					"code": 201,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Length",
+							"value": "3893",
+							"name": "Content-Length",
+							"description": "The length of the response body in octets (8-bit bytes)"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8",
+							"name": "Content-Type",
+							"description": "The mime type of this content"
+						},
+						{
+							"key": "Date",
+							"value": "Fri, 19 Jan 2018 10:53:48 GMT",
+							"name": "Date",
+							"description": "The date and time that the message was sent"
+						},
+						{
+							"key": "Etag",
+							"value": "W/\"f35-yOxaY3/u+3LVRFxMElQpEtnQ47Y\"",
+							"name": "Etag",
+							"description": "An identifier for a specific version of a resource, often a message digest"
+						},
+						{
+							"key": "X-Powered-By",
+							"value": "Express",
+							"name": "X-Powered-By",
+							"description": "Specifies the technology (ASP.NET, PHP, JBoss, e.g.) supporting the web application (version details are often in X-Runtime, X-Version, or X-AspNet-Version)"
+						},
+						{
+							"key": "X-Vcap-Request-Id",
+							"value": "26c35a22-1990-4409-5398-d38b7692ebe7",
+							"name": "X-Vcap-Request-Id",
+							"description": "Custom header"
+						}
+					],
+					"cookie": [
+						{
+							"expires": "Invalid Date",
+							"httpOnly": false,
+							"domain": "ondemand.com",
+							"path": "/",
+							"secure": false,
+							"value": "5$10FCF4BD293AAD310BA8F2896995A9CA|RUM+Default+Application|1",
+							"key": "dtCookie"
+						}
+					],
+					"body": ""
+				},
+				{
+					"name": "Onboarded MQTT CU on Jan 18",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{endpoint_reg_code}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\t\"id\": \"SAP-CU-MQTT_MG_20180118\",\r\n    \"applicationId\": \"{{applicationId}}\",\r\n    \"certificationVersionId\": \"{{certificationVersionId}}\",\r\n    \"gatewayId\": \"{{reg_gateway_type}}\",\r\n    \"certificateType\": \"PEM\"\r\n}"
+						},
+						"url": {
+							"raw": "https://{{registration_service_path}}{{landscape}}.{{cf_host}}/{{api_prefix}}/registration/onboard",
+							"protocol": "https",
+							"host": [
+								"{{registration_service_path}}{{landscape}}",
+								"{{cf_host}}"
+							],
+							"path": [
+								"{{api_prefix}}",
+								"registration",
+								"onboard"
+							]
+						}
+					},
+					"status": "Created",
+					"code": 201,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Length",
+							"value": "3890",
+							"name": "Content-Length",
+							"description": "The length of the response body in octets (8-bit bytes)"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8",
+							"name": "Content-Type",
+							"description": "The mime type of this content"
+						},
+						{
+							"key": "Date",
+							"value": "Fri, 19 Jan 2018 10:55:01 GMT",
+							"name": "Date",
+							"description": "The date and time that the message was sent"
+						},
+						{
+							"key": "Etag",
+							"value": "W/\"f32-Ak9Ur+B3YCzoKkkRPU+FXp/GGuA\"",
+							"name": "Etag",
+							"description": "An identifier for a specific version of a resource, often a message digest"
+						},
+						{
+							"key": "X-Powered-By",
+							"value": "Express",
+							"name": "X-Powered-By",
+							"description": "Specifies the technology (ASP.NET, PHP, JBoss, e.g.) supporting the web application (version details are often in X-Runtime, X-Version, or X-AspNet-Version)"
+						},
+						{
+							"key": "X-Vcap-Request-Id",
+							"value": "544b6c6d-a9a6-469c-413f-d7894cf3cacc",
+							"name": "X-Vcap-Request-Id",
+							"description": "Custom header"
+						}
+					],
+					"cookie": [
+						{
+							"expires": "Invalid Date",
+							"httpOnly": false,
+							"domain": "ondemand.com",
+							"path": "/",
+							"secure": false,
+							"value": "5$10FCF4BD293AAD310BA8F2896995A9CA|RUM+Default+Application|1",
+							"key": "dtCookie"
+						}
+					],
+					"body": ""
+				}
+			]
+		}
+	]
+}
