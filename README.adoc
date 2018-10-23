@@ -1,0 +1,63 @@
+= agrirouter-postman-tools
+:imagesdir: assets/images
+:toc:
+:toc-title:
+:toclevels: 4
+
+[abstract]
+== Abstract
+image::agrirouter.svg[agrirouter]
+
+The agrirouter is a universal data exchange platform for farmers and agricultural contractors that makes it possible to connect machinery and agricultural software, regardless of vendor or manufacturer. Agrirouter does not save data; it transfers data.
+As a universal data exchange platform, agrirouter fills a gap on the way to Farming 4.0. Its underlying concept unites cross-vendor and discrimination-free data transfer. You retain full control over your data. Even data exchange with service providers (e.g. agricultural contractors) and other partners is uncomplicated: Data are very rapidly transferred via the online connection, and if you wish, is intelligently connected to other datasets.
+
+
+
+== The current project you are looking at
+the agrirouter postman tools can be used to onboard endpoints to check simulate the onboarding.
+
+
+== Postman Collection
+
+The Postman Collection includes request templates for onboarding, message sending to the inbox and message requesting from the outbox.
+
+=== Setup
+
+* Get Postman: https://www.getpostman.com/ 
+* Import the postman collection from folder "postman" (for further information see link:https://learning.getpostman.com/docs/postman/collections/data_formats[here] )
+
+=== Usage
+
+==== If you want to onboard a CU: 
+* Receive a registration code through the agrirouter UI
+* Open Request "Onboarding CU" and select Onboarding Request
+* Enter your app information under "PreRequestScripts"
+* Select Environment and send Request
+
+
+==== If you want to onboard a farming software or a telemetry platform:
+* Receive a registration code throught the authentication process
+* Open Request Onboarding FMIS&Telemetry and select 01_GetSignature
+* Enter your app information in the PreRequestScripts
+* Setup and start the node server (see below)
+* Send Request 
+
+==== => Receive onboarded app credentials
+
+== Node Server
+
+The NodeJS Server is required to create an application Signature for the FMIS- and Telemetry onboarding process. 
+it can be fund under signature-creator
+
+=== Required Tools
+* https://www.npmjs.com/
+* https://nodejs.org 
+
+=== Setup
+
+* Open a console and navigate to the folder of the tool
+* Run the following command: 
+    npm install
+    node index.js
+
+

@@ -1,0 +1,100 @@
+{
+	"info": {
+		"_postman_id": "b26a4344-cc18-46bd-be1b-4b4cfe534aca",
+		"name": "agrirouter: Messaging",
+		"description": "Requests to send messages to the agrirouter as well as to get acknowledges back",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "01 - Send Message to agrirouter",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "a032fc57-3121-478f-8b85-fa3c79317ec3",
+						"type": "text/javascript",
+						"exec": [
+							"//INFO: These data are filled with the onboarding  request. If you don't want to overwrite them, let the following lines in comments.",
+							"",
+							"",
+							"// Replace the placeholder with the Ids received in the onboarding response",
+							"//",
+							"/*",
+							"pm.environment.set('deviceAlternateId', '-- deviceAlternateId goes here --');",
+							"pm.environment.set('capabilityAlternateId', '-- capabilityAlternateId goes here --');",
+							"pm.environment.set('sensorAlternateId', '-- sensorAlternateId goes here --');",
+							"",
+							"pm.environment.set('encoded_request', '-- protobuf encoded goes here --');",
+							"",
+							"*/"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"sensorAlternateId\": \"{{sensorAlternateId}}\",\n\t\"capabilityAlternateId\": \"{{capabilityAlternateId}}\",\n\t\"measures\": [[\"{{encoded_request}}\", \"{{$timestamp}}\"]]\n}\n"
+				},
+				"url": {
+					"raw": "{{inboxURL}}",
+					"host": [
+						"{{inboxURL}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "02 - Get messages from agrirouter",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "7652295c-0cfd-4abf-8b73-99b0c192e710",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{outboxURL}}",
+					"host": [
+						"{{outboxURL}}"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
