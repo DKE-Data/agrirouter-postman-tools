@@ -45,6 +45,8 @@
 							"",
 							"//------KEEP THIS AS IT IS--------------------------------------------------------------------------",
 							"let datum = new Date();",
+							"//To make sure, our timestamp is in the past, we substract a specific value here.",
+							"//For your server environment, this should not be required, if you make sure, that the server clock is correct", 
 							"datum = datum.setSeconds(datum.getSeconds()-30);",
 							"postman.setEnvironmentVariable(\"UTCTimestamp\",((new Date())).toISOString());",
 							"postman.setEnvironmentVariable(\"timeZone\",\"+02:00\");",
