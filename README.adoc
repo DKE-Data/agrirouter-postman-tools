@@ -78,3 +78,20 @@ For an SSL Secured communication, add the certificate delivered with the onboard
  <i>Adding the certificate in Postman</i>
 </p>
 ++++
+
+
+= Authorization Server
+To create a TAN for Farming Software and Telemetry platforms, we provide a small example server tool in "./authorization-server"
+
+== SETUP of your application
+
+To make your application compatible with this tool, you need to setup the redirect-URL as "http://fuf.me:8080".
+
+To make the tool runable, you will need nodejs and npm.
+
+To setup the tool, you have to run
+    npm install
+
+in the folder of the tool.
+
+
