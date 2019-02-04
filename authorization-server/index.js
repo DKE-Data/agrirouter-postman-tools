@@ -75,7 +75,7 @@ const rl = readline.createInterface({
 
 rl.question('Enter your application ID? ', (answer) => {
   // TODO: Log the answer in a database
-  console.log(`Here is your URL:  https://agrirouter-qa.cfapps.eu1.hana.ondemand.com/application/${answer}/authorize?response_type=onboard&state=12345`);
+  console.log(`Here is your URL:  https://agrirouter-qa.cfapps.eu10.hana.ondemand.com/application/${answer}/authorize?response_type=onboard&state=12345`);
 
   rl.close();
 });

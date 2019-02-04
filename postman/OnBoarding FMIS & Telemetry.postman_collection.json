@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "59ce14a0-2aa0-4c0a-bc4d-9eca436b16cd",
+		"_postman_id": "98ccffba-009e-4dc9-854b-447e00b657a5",
 		"name": "OnBoarding FMIS & Telemetry",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -12,7 +12,6 @@
 					"listen": "prerequest",
 					"script": {
 						"id": "4658caf8-8ca4-4d4c-9483-ccfea7cf6d7f",
-						"type": "text/javascript",
 						"exec": [
 							"// --------------------------------------------------------------------------------------------",
 							"//",
@@ -34,19 +33,21 @@
 							"CERTIFICATE_TYPE_P12 =\"P12\";",
 							"",
 							"//---------------CONFIGURE THESE PARAMETERS-------------------------------------------------------",
-							"/*",
+							"",
 							"postman.setEnvironmentVariable(\"reg_gateway_type\", GATEWAY_TYPE_REST);",
 							"postman.setEnvironmentVariable(\"certificateType\", CERTIFICATE_TYPE_PEM);",
 							"postman.setEnvironmentVariable(\"endpoint_reg_code\", \"----- REGISTRATION CODE GOES HERE -----\");",
 							"postman.setEnvironmentVariable(\"reg_external_id\", \"----- EXTERNAL ID GOES HERE -----\");",
 							"postman.setEnvironmentVariable(\"applicationId\", \"-- APPLICATION ID GOES HERE --\");",
-							"postman.setEnvironmentVariable(\"certificationVersionId\", \"-- certificatioinVersionId goes here --\");*/",
+							"postman.setEnvironmentVariable(\"certificationVersionId\", \"-- certificatioinVersionId goes here --\");",
 							"postman.setEnvironmentVariable(\"private_key\", \"-----BEGIN PRIVATE KEY-----...-----END PRIVATE KEY-----\");",
+							"",
+							"",
 							"",
 							"//------KEEP THIS AS IT IS--------------------------------------------------------------------------",
 							"let datum = new Date();",
 							"//To make sure, our timestamp is in the past, we substract a specific value here.",
-							"//For your server environment, this should not be required, if you make sure, that the server clock is correct", 
+							"//For your server environment, this should not be required, if you make sure, that the server clock is correct",
 							"datum = datum.setSeconds(datum.getSeconds()-30);",
 							"postman.setEnvironmentVariable(\"UTCTimestamp\",((new Date())).toISOString());",
 							"postman.setEnvironmentVariable(\"timeZone\",\"+02:00\");",
@@ -62,18 +63,19 @@
 							"            };",
 							"",
 							"postman.setEnvironmentVariable(\"body_string\",JSON.stringify(body));"
-						]
+						],
+						"type": "text/javascript"
 					}
 				},
 				{
 					"listen": "test",
 					"script": {
 						"id": "257526cc-7089-4a30-b908-66fdd64561c7",
-						"type": "text/javascript",
 						"exec": [
 							"var jsonData = JSON.parse(responseBody);",
 							"postman.setEnvironmentVariable(\"X-Agrirouter-Signature\", jsonData.signature);"
-						]
+						],
+						"type": "text/javascript"
 					}
 				}
 			],
@@ -159,7 +161,6 @@
 			},
 			"response": [
 				{
-					"id": "c9f1c6f9-19a0-4e94-94ba-ad5cccaae68c",
 					"name": "Onboarded REST CU on Jan 18",
 					"originalRequest": {
 						"method": "POST",
@@ -246,7 +247,6 @@
 					"body": "{}"
 				},
 				{
-					"id": "42d1baf8-728f-4280-805d-6ba6067f3708",
 					"name": "Onboarded MQTT CU on Jan 18",
 					"originalRequest": {
 						"method": "POST",
@@ -407,7 +407,6 @@
 			},
 			"response": [
 				{
-					"id": "740237a2-9039-4f96-962f-4dbb669f0bcb",
 					"name": "Onboarded REST CU on Jan 18",
 					"originalRequest": {
 						"method": "POST",
@@ -494,7 +493,6 @@
 					"body": "{}"
 				},
 				{
-					"id": "a4942901-1958-4d32-bca6-12068778f595",
 					"name": "Onboarded MQTT CU on Jan 18",
 					"originalRequest": {
 						"method": "POST",
