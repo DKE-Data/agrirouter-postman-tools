@@ -60,4 +60,21 @@ it can be fund under signature-creator
     npm install
     node index.js
 
+== Adding a Certificate
 
+For an SSL Secured communication, add the certificate delivered with the onboarding request:
+
+1. Copy&paste ENCRYPTED PRIVATE KEY section to new file
+
+2. Replace all \n with new lines.
+
+3. Save both sections (ENCRYPTED PRIVATE KEY and CERTIFICATE) in separate files (e. g. DEVICE_MYEXTERNALID.key, DEVICE_MYEXTERNALID.crt)
+
+4. Provide both in Postman Settings / Certificates, including the passphrase provided in the onboarding response.
+
+++++
+<p align="center">
+ <img src="./assets/images/certificate.png" width="603px" height="152px"><br>
+ <i>Adding the certificate in Postman</i>
+</p>
+++++
