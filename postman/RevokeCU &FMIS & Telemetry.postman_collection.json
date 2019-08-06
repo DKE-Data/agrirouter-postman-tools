@@ -1,0 +1,133 @@
+{
+	"info": {
+		"_postman_id": "418aaf44-5140-4a82-a3b8-49e499bb4667",
+		"name": "RevokeCU &FMIS & Telemetry",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Create Signature for Revoke",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "723d32a1-1c2c-4819-a566-9374ae6ad0a1",
+						"exec": [
+							"//-----------------------------------------------------------------------",
+							"//       Generating the signature for the revoke process",
+							"//",
+							"//------------------------------------------------------------------------",
+							"",
+							"//---------------CONFIGURE THESE PARAMETERS-------------------------------------------------------",
+							"//Template",
+							"postman.setEnvironmentVariable(\"accountId\", \"--- AccountID goes here ---\");",
+							"postman.setEnvironmentVariable(\"endpointId\", \"--- deviceAlternateID goes here -----\");",
+							"postman.setEnvironmentVariable(\"applicationId\", \"--- Application ID goes here -----\");",
+							"postman.setEnvironmentVariable(\"private_key\", \"-----BEGIN PRIVATE KEY-----...-----END PRIVATE KEY-----\");",
+							"//------KEEP THIS AS IT IS--------------------------------------------------------------------------",
+							"let datum = new Date();",
+							"//To make sure, our timestamp is in the past, we substract a specific value here.",
+							"//For your server environment, this should not be required, if you make sure, that the server clock is correct",
+							"datum = datum.setSeconds(datum.getSeconds()-30);",
+							"postman.setEnvironmentVariable(\"UTCTimestamp\",((new Date())).toISOString());",
+							"postman.setEnvironmentVariable(\"timeZone\",\"+02:00\");",
+							"",
+							"let body = {",
+							"                accountId: postman.getEnvironmentVariable(\"accountId\"),",
+							"                endpointIds: [postman.getEnvironmentVariable(\"endpointId\")],",
+							"                UTCTimestamp: postman.getEnvironmentVariable(\"UTCTimestamp\"),  ",
+							"                timeZone: postman.getEnvironmentVariable(\"timeZone\"),",
+							"            };",
+							"",
+							"postman.setEnvironmentVariable(\"body_string_revoke\",JSON.stringify(body));"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "d9c3f4d3-6c4b-4026-bd14-fe76a1d46d93",
+						"exec": [
+							"var jsonData = JSON.parse(responseBody);",
+							"postman.setEnvironmentVariable(\"XAgrirouterSignatureForRevoke\", jsonData.signature);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"input\": {{body_string_revoke}},\n  \"private_key\": \"{{private_key}}\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:1234/getSignature",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "1234",
+					"path": [
+						"getSignature"
+					]
+				},
+				"description": "Here, you have to enter all the endpoint information to create a signature for Revoking"
+			},
+			"response": []
+		},
+		{
+			"name": "Revoke",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "X-Agrirouter-Signature",
+						"value": "{{XAgrirouterSignatureForRevoke}}",
+						"type": "text"
+					},
+					{
+						"key": "X-Agrirouter-ApplicationId",
+						"value": "{{applicationId}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{{body_string_revoke}}"
+				},
+				"url": {
+					"raw": "https://{{registration_service_path}}{{landscape}}.{{cf_host}}/{{api_prefix}}/registration/onboard/revoke",
+					"protocol": "https",
+					"host": [
+						"{{registration_service_path}}{{landscape}}",
+						"{{cf_host}}"
+					],
+					"path": [
+						"{{api_prefix}}",
+						"registration",
+						"onboard",
+						"revoke"
+					]
+				},
+				"description": "This can be executet AFTER Create Signature to revoke the message"
+			},
+			"response": []
+		}
+	]
+}

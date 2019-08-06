@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "b26a4344-cc18-46bd-be1b-4b4cfe534aca",
+		"_postman_id": "6c1d9873-af1f-4be3-b491-aee24fc2a4ca",
 		"name": "agrirouter: Messaging",
 		"description": "Requests to send messages to the agrirouter as well as to get acknowledges back",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
