@@ -82,7 +82,7 @@ Receive a registration code throught the authorization process (see Authorizatio
 * Open Environment variables list by clicking 
 ++++
 <p align="center">
- <img src="./assets/images/env_variables_symbol.png" width="603px" height="152px"><br>
+ <img src="./assets/images/env_variables_symbol.png"><br>
  <i>Open environment variables</i>
 </p>
 ++++
@@ -90,7 +90,7 @@ Receive a registration code throught the authorization process (see Authorizatio
 * Open Nodepad++ or an editor and replace "\n" by an actual line break 
 ++++
 <p align="center">
- <img src="./assets/images/replace_linebreaks.png" width="603px" height="152px"><br>
+ <img src="./assets/images/replace_linebreaks.png"><br>
  <i>Replace Linebreaks</i>
 </p>
 ++++
@@ -109,7 +109,7 @@ For communication with agrirouter, you need to setup the credentials. They are a
 The certificates required for communication need to be added by hand:
 ++++
 <p align="center">
- <img src="./assets/images/certificate.png" width="603px" height="152px"><br>
+ <img src="./assets/images/certificate.png"><br>
  <i>Adding the certificate in Postman</i>
 </p>
 ++++
