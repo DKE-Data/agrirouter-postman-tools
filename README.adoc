@@ -26,12 +26,13 @@ The nodejs servers are used to provide some required functionalities that could 
 ** Install nodejs (see https://nodejs.org/en/)
 ** Install putty (see https://www.putty.org/ )
 ** Install an editor (e.g. notepad++)
+* Get OpenSSL (see https://www.openssl.org/)
 
 
 == Usage
 === Onboarding
 
-Select, if you want to onboard a CU or a farming software or a telemetry platform
+Decide, if you want to onboard a CU or a farming software or a telemetry platform
 
 ==== Preparation
 * Select Environment (we advice __agrirouter-QA eu10__)
@@ -116,7 +117,7 @@ The certificates required for communication need to be added by hand:
 
 * As private key, use __serv.key__
 * As certificate, use __key.cert__
-The passkey can be found in the environment variable __endpointAuthSecret__
+* The passkey can be found in the environment variable __endpointAuthSecret__
 
 === Sending requests to the inbox
 * Select __agrirouter: Messaging / 01 - Send Message to agrirouter__
@@ -147,6 +148,7 @@ To make your application compatible with this tool, you need to setup the redire
 * call __nodejs index.js__ to run the program
 * provide your applicationId
 * call the echoed url
+* The registration code can be found in "regcode"
 
 == Node Server for Signature creation
 
