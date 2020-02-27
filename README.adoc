@@ -96,6 +96,10 @@ Receive a registration code throught the authorization process (see Authorizatio
 ++++
 * Save the first part of the text ("-----BEGIN ENCRYPTED PRIVATE KEY----- ... -----END ENCRYPTED PRIVATE KEY-----" ) to a file __private.key__
 * Save the second part of the text ("-----BEGIN CERTIFICATE----- ... -----END CERTIFICATE-----") to a file __key.cert__
+* To use the certificate in postman, it needs to be converted, e.g. using openssl.
+** Start command line and navigate to the folder where the key-file is stored.
+** Run __openssl pkey -in private.key -out serv.key -des3__
+** As password, use the value from __endpointAuthSecret__  (as well for the new password)
 
 
 === Communication with an endpoint
@@ -110,6 +114,8 @@ The certificates required for communication need to be added by hand:
 </p>
 ++++
 
+* As private key, use __serv.key__
+* As certificate, use __key.cert__
 The passkey can be found in the environment variable __endpointAuthSecret__
 
 === Sending requests to the inbox
