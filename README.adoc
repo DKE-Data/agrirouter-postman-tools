@@ -14,64 +14,95 @@ As a universal data exchange platform, agrirouter fills a gap on the way to Farm
 
 
 == The current project you are looking at
-the agrirouter postman tools can be used to onboard endpoints to check simulate the onboarding.
-
-
-== Postman Collection
-
+The agrirouter postman tools can be used to onboard endpoints to check simulate the onboarding.
 The Postman Collection includes request templates for onboarding, message sending to the inbox and message requesting from the outbox.
+The nodejs servers are used to provide some required functionalities that could not be implemented in postman.
 
-=== Setup
+== Setup
 
 * Get Postman: https://www.getpostman.com/ 
 * Import the postman collection from folder "postman" (for further information see link:https://learning.getpostman.com/docs/postman/collections/data_formats[here] )
-
-=== Usage
-
-==== If you want to onboard a CU: 
-* Receive a registration code through the agrirouter UI
-* Open Request "Onboarding CU" and select Onboarding Request
-* Enter your app information under "PreRequestScripts"
-* Select Environment and send Request
+* (For FMIS and Telemetry Platforms only):
+** Install nodejs (see https://nodejs.org/en/)
+** Install putty (see https://www.putty.org/ )
+** Install an editor (e.g. notepad++)
 
 
-==== If you want to onboard a farming software or a telemetry platform:
-* Receive a registration code throught the authentication process
-* Open Request Onboarding FMIS&Telemetry and select 01_GetSignature
+== Usage
+=== Onboarding
+
+Select, if you want to onboard a CU or a farming software or a telemetry platform
+
+==== Preparation
+* Select Environment (we advice __agrirouter-QA eu10__)
+++++
+<p align="center">
+ <img src="./assets/images/select_environment.png"><br>
+ <i>Select environment</i>
+</p>
+++++
+
+==== Onboard a CU: 
+* Receive a registration code through the agrirouter UI (see https://lb.my-agrirouter.com/en/connect-the-machine/ )
+* Open Request "Onboarding CU" and select Onboarding Request in Postman
+* Enter your app information in the "PreRequestScripts"
+** __endpoint_reg_code__ is where the registration token from the authorization request shall be stored
+** __reg_external_id__ use this to create an external id; we advice a UUID of form urn:uuid:324234....
+* Send Request
+
+**=> Receive onboarded app credentials**
+
+=> The data is written to different environment variables
+
+
+==== Onboard a farming software or a telemetry platform:
+===== Authorization
+
+Receive a registration code throught the authorization process (see Authorization Server below)
+
+===== Onboarding
+
+* Open Request Onboarding FMIS&Telemetry and select __01_GetSignature__
 * Enter your app information in the PreRequestScripts
-* Setup and start the node server (see below)
+** __private_key__ is the private key you received when setting up your application in the agrirouter UI, see https://github.com/DKE-Data/agrirouter-interface-documentation/blob/develop/docs/integration/authorization.adoc )
+** __endpoint_reg_code__ is where the registration token from the authorization request shall be stored
+** __reg_external_id__ use this to create an external id; we advice a UUID of form urn:uuid:324234....
+* Setup and start the node server for signature creation (see Node Server for Signature Creation)
 * Send Request 
+**=> You will receive the signature which is required for the secured onboarding**
+* (optional) Select request __02_Verify Request Secure__ and click send to get an account id and to check, if the data you received so far is valid
+* Select Request __03_Onboarding Request Secure__ and click send to receive the onboarding credentials
 
-==== => Receive onboarded app credentials
+**=> Receive onboarded app credentials**
 
-== Node Server
+=> The data is written to different environment variables
 
-The NodeJS Server is required to create an application Signature for the FMIS- and Telemetry onboarding process. 
-it can be fund under signature-creator
+==== Save certificates to be used with postman for agrirouter
 
-=== Required Tools
-* https://www.npmjs.com/
-* https://nodejs.org 
+* Open Environment variables list by clicking 
+++++
+<p align="center">
+ <img src="./assets/images/env_variables_symbol.png" width="603px" height="152px"><br>
+ <i>Open environment variables</i>
+</p>
+++++
+* Copy value of environment variable _endpointAuthCertificate_
+* Open Nodepad++ or an editor and replace "\n" by an actual line break 
+++++
+<p align="center">
+ <img src="./assets/images/replace_linebreaks.png" width="603px" height="152px"><br>
+ <i>Replace Linebreaks</i>
+</p>
+++++
+* Save the first part of the text ("-----BEGIN ENCRYPTED PRIVATE KEY----- ... -----END ENCRYPTED PRIVATE KEY-----" ) to a file __private.key__
+* Save the second part of the text ("-----BEGIN CERTIFICATE----- ... -----END CERTIFICATE-----") to a file __key.cert__
 
-=== Setup
 
-* Open a console and navigate to the folder of the tool
-* Run the following command: 
-    npm install
-    node index.js
+=== Communication with an endpoint
+==== Preparation
+For communication with agrirouter, you need to setup the credentials. They are automatically added, when you performed the onboarding process before.
 
-== Adding a Certificate
-
-For an SSL Secured communication, add the certificate delivered with the onboarding request:
-
-1. Copy&paste ENCRYPTED PRIVATE KEY section to new file
-
-2. Replace all \n with new lines.
-
-3. Save both sections (ENCRYPTED PRIVATE KEY and CERTIFICATE) in separate files (e. g. DEVICE_MYEXTERNALID.key, DEVICE_MYEXTERNALID.crt)
-
-4. Provide both in Postman Settings / Certificates, including the passphrase provided in the onboarding response.
-
+The certificates required for communication need to be added by hand:
 ++++
 <p align="center">
  <img src="./assets/images/certificate.png" width="603px" height="152px"><br>
@@ -79,19 +110,46 @@ For an SSL Secured communication, add the certificate delivered with the onboard
 </p>
 ++++
 
+The passkey can be found in the environment variable __endpointAuthSecret__
 
-= Authorization Server
-To create a TAN for Farming Software and Telemetry platforms, we provide a small example server tool in "./authorization-server"
+=== Sending requests to the inbox
+* Select __agrirouter: Messaging / 01 - Send Message to agrirouter__
+* Set the request in the environment variable __encoded_request__
+* Send the request
 
-== SETUP of your application
+**Remark**
+=====
+Requests are base64-encoded protobuf-structures. 
+Check the documentation on how to build messages
 
-To make your application compatible with this tool, you need to setup the redirect-URL as "http://fuf.me:8080".
+For initial tests you can use the link:https://github.com/saschadoemer/agrirouter-protobuf-toolset[agrirouter protobuf toolset]. 
+=====
 
-To make the tool runable, you will need nodejs and npm.
+== Authorization Server
+To create a registration code for Farming Software and Telemetry platforms, we provide a small example server tool.
+It can be found in "./authorization-server"
 
-To setup the tool, you have to run
+For details on the authorization process, see https://github.com/DKE-Data/agrirouter-interface-documentation/blob/develop/docs/integration/authorization.adoc  
+
+=== SETUP of your application
+
+To make your application compatible with this tool, you need to setup the redirect-URL as "http://fuf.me:8080". 
+
+=== Start authorization server
+* navigate to the authorization-server folder in command line
+* call __npm install__ to install all required libraries
+* call __nodejs index.js__ to run the program
+* provide your applicationId
+* call the echoed url
+
+== Node Server for Signature creation
+
+The NodeJS Server for signature creation is required to create an application Signature for the FMIS- and Telemetry onboarding process. 
+It can be found in ./signature-creator.
+
+=== Setup
+
+* Open a console and navigate to the folder of the tool
+* Run the following command: 
     npm install
-
-in the folder of the tool.
-
-
+    node index.js

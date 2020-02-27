@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "a9a41dbb-0e33-45e1-bf22-c560c9603c53",
+		"_postman_id": "7ec6129f-256d-40a7-8754-755ee2033ce8",
 		"name": "OnBoarding CU",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -12,7 +12,6 @@
 					"listen": "prerequest",
 					"script": {
 						"id": "11ae2150-0c92-4ef9-a323-b30a3476d631",
-						"type": "text/javascript",
 						"exec": [
 							"// --------------------------------------------------------------------------------------------",
 							"//",
@@ -39,22 +38,32 @@
 							"postman.setEnvironmentVariable(\"applicationId\", \"--- APPLICATIONID GOES HEERE ---\");",
 							"postman.setEnvironmentVariable(\"certificationVersionId\", \"--- CERTIFICATION VERSION ID GOES HERE ---\");",
 							""
-						]
+						],
+						"type": "text/javascript"
 					}
 				},
 				{
 					"listen": "test",
 					"script": {
 						"id": "062afb8b-e3f9-41a6-aad2-9d484d0b18c1",
-						"type": "text/javascript",
 						"exec": [
 							"var jsonData = JSON.parse(responseBody);",
 							"postman.setEnvironmentVariable(\"deviceAlternateId\", jsonData.deviceAlternateId);",
 							"postman.setEnvironmentVariable(\"capabilityAlternateId\",jsonData.capabilityAlternateId);",
 							"postman.setEnvironmentVariable(\"sensorAlternateId\",jsonData.sensorAlternateId);",
 							"postman.setEnvironmentVariable(\"inboxURL\",jsonData.connectionCriteria.measures);",
-							"postman.setEnvironmentVariable(\"outboxURL\",jsonData.connectionCriteria.commands);"
-						]
+							"postman.setEnvironmentVariable(\"outboxURL\",jsonData.connectionCriteria.commands);",
+							"",
+							"",
+							"//Remark: This is only used, so that the result is saved somewhere and not simply deleted by the UI",
+							"postman.setEnvironmentVariable(\"Onboard_FullResult\",jsonData);",
+							"postman.setEnvironmentVariable(\"endpointAuthCertificate\",jsonData.authentication.certificate);",
+							"postman.setEnvironmentVariable(\"endpointAuthSecret\", jsonData.authentication.secret);",
+							"postman.setEnvironmentVariable(\"endpointAuthType\",jsonData.authentication.type);",
+							"",
+							""
+						],
+						"type": "text/javascript"
 					}
 				}
 			],
@@ -263,5 +272,6 @@
 				}
 			]
 		}
-	]
+	],
+	"protocolProfileBehavior": {}
 }

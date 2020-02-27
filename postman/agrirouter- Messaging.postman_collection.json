@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "6c1d9873-af1f-4be3-b491-aee24fc2a4ca",
+		"_postman_id": "a57c55c0-3137-49b7-a703-c872d308d812",
 		"name": "agrirouter: Messaging",
 		"description": "Requests to send messages to the agrirouter as well as to get acknowledges back",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
@@ -13,26 +13,41 @@
 					"listen": "prerequest",
 					"script": {
 						"id": "a032fc57-3121-478f-8b85-fa3c79317ec3",
-						"type": "text/javascript",
 						"exec": [
 							"//INFO: These data are filled with the onboarding  request. If you don't want to overwrite them, let the following lines in comments.",
 							"",
 							"",
 							"// Replace the placeholder with the Ids received in the onboarding response",
 							"//",
-							"/*",
-							"pm.environment.set('deviceAlternateId', '-- deviceAlternateId goes here --');",
-							"pm.environment.set('capabilityAlternateId', '-- capabilityAlternateId goes here --');",
-							"pm.environment.set('sensorAlternateId', '-- sensorAlternateId goes here --');",
+							"let datum = new Date();",
+							"//To make sure, our timestamp is in the past, we substract a specific value here.",
+							"//For your server environment, this should not be required, if you make sure, that the server clock is correct",
+							"datum = datum.setSeconds(datum.getSeconds()-30);",
+							"postman.setEnvironmentVariable(\"UTCTimestamp\",((new Date())).toISOString());",
+							"postman.setEnvironmentVariable(\"timeZone\",\"+02:00\");",
 							"",
-							"pm.environment.set('encoded_request', '-- protobuf encoded goes here --');",
+							"postman.setEnvironmentVariable(\"encoded_request\",\"-----ENCODED REQUEST GOES HERE------\");",
 							"",
-							"*/"
-						]
+							"",
+							"inboxmessage = {",
+							"    \"sensorAlternateId\": \"{{sensorAlternateId}}\",",
+							"",
+							"    \"capabilityAlternateId\": \"{{capabilityAlternateId}}\",",
+							"",
+							"\"measures\": [[\"{{encoded_request}}\", \"{{$UTCTimestamp}}{{timeZone}}\"]]",
+							"    ",
+							"}",
+							"",
+							"postman.setEnvironmentVariable(\"inbox_msg\",inboxmessage);"
+						],
+						"type": "text/javascript"
 					}
 				}
 			],
 			"request": {
+				"auth": {
+					"type": "noauth"
+				},
 				"method": "POST",
 				"header": [
 					{
@@ -83,10 +98,6 @@
 						"value": "application/json"
 					}
 				],
-				"body": {
-					"mode": "raw",
-					"raw": ""
-				},
 				"url": {
 					"raw": "{{outboxURL}}",
 					"host": [
@@ -96,5 +107,6 @@
 			},
 			"response": []
 		}
-	]
+	],
+	"protocolProfileBehavior": {}
 }
