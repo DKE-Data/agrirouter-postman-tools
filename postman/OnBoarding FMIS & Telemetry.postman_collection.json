@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "98ccffba-009e-4dc9-854b-447e00b657a5",
+		"_postman_id": "16877a8d-76ae-4211-bddd-a008f17f4602",
 		"name": "OnBoarding FMIS & Telemetry",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -40,8 +40,7 @@
 							"postman.setEnvironmentVariable(\"reg_external_id\", \"----- EXTERNAL ID GOES HERE -----\");",
 							"postman.setEnvironmentVariable(\"applicationId\", \"-- APPLICATION ID GOES HERE --\");",
 							"postman.setEnvironmentVariable(\"certificationVersionId\", \"-- certificatioinVersionId goes here --\");",
-							"postman.setEnvironmentVariable(\"private_key\", \"-----BEGIN PRIVATE KEY-----...-----END PRIVATE KEY-----\");",
-							"",
+							"postman.setEnvironmentVariable(\"private_key\", \"-----BEGIN PRIVATE KEY-----...-----END PRIVATE KEY-----\");",							"",
 							"",
 							"",
 							"//------KEEP THIS AS IT IS--------------------------------------------------------------------------",
@@ -198,92 +197,6 @@
 					"header": [
 						{
 							"key": "Content-Length",
-							"value": "3893",
-							"name": "Content-Length",
-							"description": "The length of the response body in octets (8-bit bytes)"
-						},
-						{
-							"key": "Content-Type",
-							"value": "application/json; charset=utf-8",
-							"name": "Content-Type",
-							"description": "The mime type of this content"
-						},
-						{
-							"key": "Date",
-							"value": "Fri, 19 Jan 2018 10:53:48 GMT",
-							"name": "Date",
-							"description": "The date and time that the message was sent"
-						},
-						{
-							"key": "Etag",
-							"value": "W/\"f35-yOxaY3/u+3LVRFxMElQpEtnQ47Y\"",
-							"name": "Etag",
-							"description": "An identifier for a specific version of a resource, often a message digest"
-						},
-						{
-							"key": "X-Powered-By",
-							"value": "Express",
-							"name": "X-Powered-By",
-							"description": "Specifies the technology (ASP.NET, PHP, JBoss, e.g.) supporting the web application (version details are often in X-Runtime, X-Version, or X-AspNet-Version)"
-						},
-						{
-							"key": "X-Vcap-Request-Id",
-							"value": "26c35a22-1990-4409-5398-d38b7692ebe7",
-							"name": "X-Vcap-Request-Id",
-							"description": "Custom header"
-						}
-					],
-					"cookie": [
-						{
-							"expires": "Invalid Date",
-							"httpOnly": false,
-							"domain": "ondemand.com",
-							"path": "/",
-							"secure": false,
-							"value": "5$10FCF4BD293AAD310BA8F2896995A9CA|RUM+Default+Application|1",
-							"key": "dtCookie"
-						}
-					],
-					"body": "{}"
-				},
-				{
-					"name": "Onboarded MQTT CU on Jan 18",
-					"originalRequest": {
-						"method": "POST",
-						"header": [
-							{
-								"key": "Authorization",
-								"value": "Bearer {{endpoint_reg_code}}"
-							},
-							{
-								"key": "Content-Type",
-								"value": "application/json"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n\t\"id\": \"SAP-CU-MQTT_MG_20180118\",\r\n    \"applicationId\": \"{{applicationId}}\",\r\n    \"certificationVersionId\": \"{{certificationVersionId}}\",\r\n    \"gatewayId\": \"{{reg_gateway_type}}\",\r\n    \"certificateType\": \"PEM\"\r\n}"
-						},
-						"url": {
-							"raw": "https://{{registration_service_path}}{{landscape}}.{{cf_host}}/{{api_prefix}}/registration/onboard",
-							"protocol": "https",
-							"host": [
-								"{{registration_service_path}}{{landscape}}",
-								"{{cf_host}}"
-							],
-							"path": [
-								"{{api_prefix}}",
-								"registration",
-								"onboard"
-							]
-						}
-					},
-					"status": "Created",
-					"code": 201,
-					"_postman_previewlanguage": "json",
-					"header": [
-						{
-							"key": "Content-Length",
 							"value": "3890",
 							"name": "Content-Length",
 							"description": "The length of the response body in octets (8-bit bytes)"
@@ -331,6 +244,92 @@
 						}
 					],
 					"body": "{}"
+				},
+				{
+					"name": "Onboarded REST CU on Jan 18",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{endpoint_reg_code}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\t\"id\": \"SAP-CU-REST_MG_20180118\",\r\n    \"applicationId\": \"{{applicationId}}\",\r\n    \"certificationVersionId\": \"{{certificationVersionId}}\",\r\n    \"gatewayId\": \"{{reg_gateway_type}}\",\r\n    \"certificateType\": \"PEM\"\r\n}"
+						},
+						"url": {
+							"raw": "https://{{registration_service_path}}{{landscape}}.{{cf_host}}/{{api_prefix}}/registration/onboard",
+							"protocol": "https",
+							"host": [
+								"{{registration_service_path}}{{landscape}}",
+								"{{cf_host}}"
+							],
+							"path": [
+								"{{api_prefix}}",
+								"registration",
+								"onboard"
+							]
+						}
+					},
+					"status": "Created",
+					"code": 201,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Length",
+							"value": "3893",
+							"name": "Content-Length",
+							"description": "The length of the response body in octets (8-bit bytes)"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8",
+							"name": "Content-Type",
+							"description": "The mime type of this content"
+						},
+						{
+							"key": "Date",
+							"value": "Fri, 19 Jan 2018 10:53:48 GMT",
+							"name": "Date",
+							"description": "The date and time that the message was sent"
+						},
+						{
+							"key": "Etag",
+							"value": "W/\"f35-yOxaY3/u+3LVRFxMElQpEtnQ47Y\"",
+							"name": "Etag",
+							"description": "An identifier for a specific version of a resource, often a message digest"
+						},
+						{
+							"key": "X-Powered-By",
+							"value": "Express",
+							"name": "X-Powered-By",
+							"description": "Specifies the technology (ASP.NET, PHP, JBoss, e.g.) supporting the web application (version details are often in X-Runtime, X-Version, or X-AspNet-Version)"
+						},
+						{
+							"key": "X-Vcap-Request-Id",
+							"value": "26c35a22-1990-4409-5398-d38b7692ebe7",
+							"name": "X-Vcap-Request-Id",
+							"description": "Custom header"
+						}
+					],
+					"cookie": [
+						{
+							"expires": "Invalid Date",
+							"httpOnly": false,
+							"domain": "ondemand.com",
+							"path": "/",
+							"secure": false,
+							"value": "5$10FCF4BD293AAD310BA8F2896995A9CA|RUM+Default+Application|1",
+							"key": "dtCookie"
+						}
+					],
+					"body": "{}"
 				}
 			]
 		},
@@ -341,17 +340,16 @@
 					"listen": "prerequest",
 					"script": {
 						"id": "86b0a2ee-4fa0-4eea-bb1b-ba3eb1b4b4c3",
-						"type": "text/javascript",
 						"exec": [
 							"//TODO: Once we get the code running in Postman itself, the GetSignature Call is no longer needed!"
-						]
+						],
+						"type": "text/javascript"
 					}
 				},
 				{
 					"listen": "test",
 					"script": {
 						"id": "94972d57-e9e7-4ae9-9bd8-6197cafd012d",
-						"type": "text/javascript",
 						"exec": [
 							"var jsonData = JSON.parse(responseBody);",
 							"postman.setEnvironmentVariable(\"deviceAlternateId\", jsonData.deviceAlternateId);",
@@ -361,8 +359,14 @@
 							"postman.setEnvironmentVariable(\"outboxURL\",jsonData.connectionCriteria.commands);",
 							"",
 							"//Remark: This is only used, so that the result is saved somewhere and not simply deleted by the UI",
-							"postman.setEnvironmentVariable(\"Onboard_FullResult\",jsonData);"
-						]
+							"postman.setEnvironmentVariable(\"Onboard_FullResult\",jsonData);",
+							"postman.setEnvironmentVariable(\"endpointAuthCertificate\",jsonData.authentication.certificate);",
+							"postman.setEnvironmentVariable(\"endpointAuthSecret\", jsonData.authentication.secret);",
+							"postman.setEnvironmentVariable(\"endpointAuthType\",jsonData.authentication.type);",
+							"",
+							""
+						],
+						"type": "text/javascript"
 					}
 				}
 			],
@@ -580,5 +584,6 @@
 				}
 			]
 		}
-	]
+	],
+	"protocolProfileBehavior": {}
 }

@@ -1,1 +1,5 @@
 /signature-creator/package-lock.json
+/signature-creator/node_modules
+/authorization-server/node_modules
+
+
