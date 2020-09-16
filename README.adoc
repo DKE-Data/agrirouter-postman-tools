@@ -145,19 +145,18 @@ To make your application compatible with this tool, you need to setup the redire
 === Start authorization server
 * navigate to the authorization-server folder in command line
 * call __npm install__ to install all required libraries
-* call __nodejs index.js__ to run the program
+* call __node index.js__ to run the program
 * provide your applicationId
 * call the echoed url
 * The registration code can be found in "regcode"
 
-== Node Server for Signature creation
+== Node server for signature creation
 
-The NodeJS Server for signature creation is required to create an application Signature for the FMIS- and Telemetry onboarding process. 
+The NodeJS Server for signature creation is required to create an application signature for the FMIS- and Telemetry onboarding process. 
 It can be found in ./signature-creator.
 
 === Setup
 
 * Open a console and navigate to the folder of the tool
-* Run the following command: 
-    npm install
-    node index.js
+* call __npm install__ to install all required libraries
+* call __node index.js__ to run the program
