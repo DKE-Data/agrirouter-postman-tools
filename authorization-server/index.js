@@ -25,7 +25,7 @@
  //Include required Libraries
 let express = require("express");
 let bodyParser = require("body-parser");
-
+let uuid = require("uuid");
 let readline = require('readline');
 
 
@@ -75,7 +75,7 @@ const rl = readline.createInterface({
 
 rl.question('Enter your application ID? ', (answer) => {
   // TODO: Log the answer in a database
-  console.log(`Here is your URL:  https://agrirouter-qa.cfapps.eu10.hana.ondemand.com/application/${answer}/authorize?response_type=onboard&state=12345`);
+  console.log(`Here is your URL:  https://agrirouter-qa.cfapps.eu10.hana.ondemand.com/application/${answer}/authorize?response_type=onboard&state=${uuid.v4()}`);
 
   rl.close();
 });
