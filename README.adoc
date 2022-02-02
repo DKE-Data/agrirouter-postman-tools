@@ -140,7 +140,7 @@ For details on the authorization process, see https://github.com/DKE-Data/agriro
 
 === SETUP of your application
 
-To make your application compatible with this tool, you need to setup the redirect-URL as "http://fuf.me:8080". 
+To make your application compatible with this tool, you need to setup the redirect-URL as "http://fuf.me:8080/auth". 
 
 === Start authorization server
 * navigate to the authorization-server folder in command line
