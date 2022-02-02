@@ -27,6 +27,7 @@ let express = require("express");
 let bodyParser = require("body-parser");
 let uuid = require("uuid");
 let readline = require('readline');
+const { sign } = require("crypto");
 
 
 //Create Express Server
@@ -51,15 +52,25 @@ app.get("*", function(req,res)
          let token = req.query.token;
          let signature = req.query.signature;
 
-         console.log("State: "+state);
+         if( state== undefined || token == undefined || signature == undefined) {
+           console.log("Missing information in call; canceling");
+           res.send("");
+           return;
+         }
 
          console.log("We are currently not checking the Signature, you however should do so!");
 
          let sToken = Buffer.from(token,'base64').toString();
          let data = JSON.parse(sToken);
-         console.log(sToken);
-         console.log(JSON.stringify(data));
-         res.send(state + "   " + JSON.stringify(data));
+
+         let resultJSON = JSON.stringify({
+           State: state,
+           Data: data,
+           Signature: signature
+         });
+         
+         console.log(resultJSON)
+         res.send(resultJSON);
     }
 );
 
@@ -74,7 +85,6 @@ const rl = readline.createInterface({
 });
 
 rl.question('Enter your application ID? ', (answer) => {
-  // TODO: Log the answer in a database
   console.log(`Here is your URL:  https://agrirouter-qa.cfapps.eu10.hana.ondemand.com/application/${answer}/authorize?response_type=onboard&state=${uuid.v4()}`);
 
   rl.close();
