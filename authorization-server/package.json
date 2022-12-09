@@ -10,7 +10,7 @@
   "license": "Apache-2.0",
   "dependencies": {
     "body-parser": "^1.18.3",
-    "express": "^4.16.3",
+    "express": "^4.17.3",
     "node-forge": "^0.10.0",
     "uuid": "^8.3.2"
   }
